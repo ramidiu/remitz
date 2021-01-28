@@ -1,0 +1,970 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ax23="http://airtime/xsd" xmlns:ns="http://ws.mfsafrica.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ax21="http://mfs/xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:axis2="http://mfs" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://mfs">
+<wsdl:documentation>XPService</wsdl:documentation>
+
+<wsdl:types>
+<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://airtime/xsd">
+<xs:complexType name="Airtime">
+<xs:sequence>
+<xs:element minOccurs="0" name="airtime_mno_id" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="airtime_mno_name" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="country_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="country_name" nillable="true" type="xs:string"/>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="denomination" nillable="true" type="ax23:Denomination"/>
+<xs:element minOccurs="0" name="free_range_values" nillable="true" type="ax23:FreeRange"/>
+<xs:element minOccurs="0" name="receive_currency_code" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Denomination">
+<xs:sequence>
+<xs:element minOccurs="0" name="receive_amount" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="FreeRange">
+<xs:sequence>
+<xs:element minOccurs="0" name="max_receive_amount" type="xs:double"/>
+<xs:element minOccurs="0" name="min_receive_amount" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+<xs:schema xmlns:ax24="http://airtime/xsd" xmlns:ax22="http://mfs/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://ws.mfsafrica.com">
+<xs:import namespace="http://mfs/xsd"/>
+<xs:import namespace="http://airtime/xsd"/>
+<xs:element name="mm_remit_log">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="receive_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="sender" nillable="true" type="ax21:Sender"/>
+<xs:element minOccurs="0" name="recipient" nillable="true" type="ax21:Recipient"/>
+<xs:element minOccurs="0" name="third_party_trans_id" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="reference" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="mm_remit_logResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax21:TransactionWallet"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="bank_trans_log">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="send_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="fee" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="sender" nillable="true" type="ax21:Sender"/>
+<xs:element minOccurs="0" name="recipient" nillable="true" type="ax21:Recipient"/>
+<xs:element minOccurs="0" name="account" nillable="true" type="ax21:Account"/>
+<xs:element minOccurs="0" name="third_party_trans_id" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="reference" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="bank_trans_logResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax21:TransactionBank"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="bank_remit_log">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="receive_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="sender" nillable="true" type="ax21:Sender"/>
+<xs:element minOccurs="0" name="recipient" nillable="true" type="ax21:Recipient"/>
+<xs:element minOccurs="0" name="account" nillable="true" type="ax21:Account"/>
+<xs:element minOccurs="0" name="third_party_trans_id" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="reference" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="bank_remit_logResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax21:TransactionBank"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="validate_airtime_account">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="from_country" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="send_currency_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="to_country" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="msisdn" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="validate_airtime_accountResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax23:Airtime"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="airtime_trans_log">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="send_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="fee" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="receive_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="recipient" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="sender" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="reference" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="third_party_trans_id" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="airtime_mno_id" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="airtime_trans_logResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax21:TransactionAirtime"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="airtime_trans_com">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="mfs_trans_id" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="airtime_trans_comResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax21:EResponse"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="get_partners">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="get_partners" nillable="true" type="ax21:Credential"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="get_partnersResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax21:Partner"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="get_banks">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="to_country" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="get_banksResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax21:Bank"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="get_trans_status">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="mfs_trans_id" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="get_trans_statusResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax21:EResponse"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="account_request">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="to_country" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="msisdn" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="account_requestResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax21:Wallet"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="cancel_trans">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="mfs_trans_id" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="cancel_transResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax21:EResponse"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="trans_com">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="mfs_trans_id" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="trans_comResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax21:EResponse"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="mm_trans_log">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="send_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="fee" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="sender" nillable="true" type="ax21:Sender"/>
+<xs:element minOccurs="0" name="recipient" nillable="true" type="ax21:Recipient"/>
+<xs:element minOccurs="0" name="third_party_trans_id" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="reference" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="mm_trans_logResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="return" nillable="true" type="ax21:TransactionWallet"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="get_rate">
+<xs:complexType>
+<xs:sequence>
+<xs:element minOccurs="0" name="login" nillable="true" type="ax21:Credential"/>
+<xs:element minOccurs="0" name="to_country" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="from_currency" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="to_currency" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="get_rateResponse">
+<xs:complexType>
+<xs:sequence>
+<xs:element maxOccurs="unbounded" minOccurs="0" name="return" nillable="true" type="ax21:Rate"/>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>
+<xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://mfs/xsd">
+<xs:complexType name="Credential">
+<xs:sequence>
+<xs:element minOccurs="0" name="corporate_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="password" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Money">
+<xs:sequence>
+<xs:element minOccurs="0" name="amount" type="xs:double"/>
+<xs:element minOccurs="0" name="currency_code" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Sender">
+<xs:sequence>
+<xs:element minOccurs="0" name="address" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="city" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="date_of_birth" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="document" nillable="true" type="ax21:Document"/>
+<xs:element minOccurs="0" name="email" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="from_country" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="msisdn" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="postal_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="state" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="surname" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Document">
+<xs:sequence>
+<xs:element minOccurs="0" name="id_country" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="id_expiry" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="id_number" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="id_type" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Recipient">
+<xs:sequence>
+<xs:element minOccurs="0" name="address" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="city" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="date_of_birth" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="document" nillable="true" type="ax21:Document"/>
+<xs:element minOccurs="0" name="email" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="msisdn" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="postal_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="state" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="status" nillable="true" type="ax21:Status"/>
+<xs:element minOccurs="0" name="surname" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="to_country" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Status">
+<xs:sequence>
+<xs:element minOccurs="0" name="status_code" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="TransactionWallet">
+<xs:sequence>
+<xs:element minOccurs="0" name="fx_rate" type="xs:double"/>
+<xs:element minOccurs="0" name="mfs_trans_id" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="name_match" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="partner_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="receive_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="sanction_list_recipient" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="sanction_list_sender" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="send_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="third_party_trans_id" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Account">
+<xs:sequence>
+<xs:element minOccurs="0" name="account_number" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="mfs_bank_code" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="TransactionBank">
+<xs:sequence>
+<xs:element minOccurs="0" name="fx_rate" type="xs:double"/>
+<xs:element minOccurs="0" name="mfs_trans_id" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="receive_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="send_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="third_party_trans_id" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="TransactionAirtime">
+<xs:sequence>
+<xs:element minOccurs="0" name="airtime_fx_rate" type="xs:double"/>
+<xs:element minOccurs="0" name="fee" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="mfs_trans_id" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="receive_amount" nillable="true" type="ax21:Money"/>
+<xs:element minOccurs="0" name="reference" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="third_party_trans_id" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="EResponse">
+<xs:sequence>
+<xs:element minOccurs="0" name="code" nillable="true" type="ax21:Code"/>
+<xs:element minOccurs="0" name="e_trans_id" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="message" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Code">
+<xs:sequence>
+<xs:element minOccurs="0" name="status_code" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Partner">
+<xs:sequence>
+<xs:element minOccurs="0" name="country_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="currency_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="limit" nillable="true" type="ax21:Limit"/>
+<xs:element minOccurs="0" name="partner_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="partner_name" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Limit">
+<xs:sequence>
+<xs:element minOccurs="0" name="max_daily_value" type="xs:double"/>
+<xs:element minOccurs="0" name="max_monthly_value" type="xs:double"/>
+<xs:element minOccurs="0" name="max_per_tx_limit" type="xs:double"/>
+<xs:element minOccurs="0" name="max_weekly_value" type="xs:double"/>
+<xs:element minOccurs="0" name="min_per_tx_limit" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Bank">
+<xs:sequence>
+<xs:element minOccurs="0" name="bank_limit" nillable="true" type="ax21:Limit"/>
+<xs:element minOccurs="0" name="bank_name" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="bic" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="country_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="currency_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="dom_bank_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="iban" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="mfs_bank_code" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Wallet">
+<xs:sequence>
+<xs:element minOccurs="0" name="msisdn" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="partner_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="status" nillable="true" type="ax21:Status"/>
+</xs:sequence>
+</xs:complexType>
+<xs:complexType name="Rate">
+<xs:sequence>
+<xs:element minOccurs="0" name="from_currency" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="fx_rate" type="xs:double"/>
+<xs:element minOccurs="0" name="partner_code" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="time_stamp" nillable="true" type="xs:string"/>
+<xs:element minOccurs="0" name="to_currency" nillable="true" type="xs:string"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
+</wsdl:types>
+<wsdl:message name="get_trans_statusRequest">
+<wsdl:part name="parameters" element="ns:get_trans_status"/>
+</wsdl:message>
+<wsdl:message name="get_trans_statusResponse">
+<wsdl:part name="parameters" element="ns:get_trans_statusResponse"/>
+</wsdl:message>
+<wsdl:message name="validate_airtime_accountRequest">
+<wsdl:part name="parameters" element="ns:validate_airtime_account"/>
+</wsdl:message>
+<wsdl:message name="validate_airtime_accountResponse">
+<wsdl:part name="parameters" element="ns:validate_airtime_accountResponse"/>
+</wsdl:message>
+<wsdl:message name="bank_remit_logRequest">
+<wsdl:part name="parameters" element="ns:bank_remit_log"/>
+</wsdl:message>
+<wsdl:message name="bank_remit_logResponse">
+<wsdl:part name="parameters" element="ns:bank_remit_logResponse"/>
+</wsdl:message>
+<wsdl:message name="get_partnersRequest">
+<wsdl:part name="parameters" element="ns:get_partners"/>
+</wsdl:message>
+<wsdl:message name="get_partnersResponse">
+<wsdl:part name="parameters" element="ns:get_partnersResponse"/>
+</wsdl:message>
+<wsdl:message name="cancel_transRequest">
+<wsdl:part name="parameters" element="ns:cancel_trans"/>
+</wsdl:message>
+<wsdl:message name="cancel_transResponse">
+<wsdl:part name="parameters" element="ns:cancel_transResponse"/>
+</wsdl:message>
+<wsdl:message name="get_banksRequest">
+<wsdl:part name="parameters" element="ns:get_banks"/>
+</wsdl:message>
+<wsdl:message name="get_banksResponse">
+<wsdl:part name="parameters" element="ns:get_banksResponse"/>
+</wsdl:message>
+<wsdl:message name="mm_trans_logRequest">
+<wsdl:part name="parameters" element="ns:mm_trans_log"/>
+</wsdl:message>
+<wsdl:message name="mm_trans_logResponse">
+<wsdl:part name="parameters" element="ns:mm_trans_logResponse"/>
+</wsdl:message>
+<wsdl:message name="trans_comRequest">
+<wsdl:part name="parameters" element="ns:trans_com"/>
+</wsdl:message>
+<wsdl:message name="trans_comResponse">
+<wsdl:part name="parameters" element="ns:trans_comResponse"/>
+</wsdl:message>
+<wsdl:message name="account_requestRequest">
+<wsdl:part name="parameters" element="ns:account_request"/>
+</wsdl:message>
+<wsdl:message name="account_requestResponse">
+<wsdl:part name="parameters" element="ns:account_requestResponse"/>
+</wsdl:message>
+<wsdl:message name="mm_remit_logRequest">
+<wsdl:part name="parameters" element="ns:mm_remit_log"/>
+</wsdl:message>
+<wsdl:message name="mm_remit_logResponse">
+<wsdl:part name="parameters" element="ns:mm_remit_logResponse"/>
+</wsdl:message>
+<wsdl:message name="airtime_trans_logRequest">
+<wsdl:part name="parameters" element="ns:airtime_trans_log"/>
+</wsdl:message>
+<wsdl:message name="airtime_trans_logResponse">
+<wsdl:part name="parameters" element="ns:airtime_trans_logResponse"/>
+</wsdl:message>
+<wsdl:message name="get_rateRequest">
+<wsdl:part name="parameters" element="ns:get_rate"/>
+</wsdl:message>
+<wsdl:message name="get_rateResponse">
+<wsdl:part name="parameters" element="ns:get_rateResponse"/>
+</wsdl:message>
+<wsdl:message name="bank_trans_logRequest">
+<wsdl:part name="parameters" element="ns:bank_trans_log"/>
+</wsdl:message>
+<wsdl:message name="bank_trans_logResponse">
+<wsdl:part name="parameters" element="ns:bank_trans_logResponse"/>
+</wsdl:message>
+<wsdl:message name="airtime_trans_comRequest">
+<wsdl:part name="parameters" element="ns:airtime_trans_com"/>
+</wsdl:message>
+<wsdl:message name="airtime_trans_comResponse">
+<wsdl:part name="parameters" element="ns:airtime_trans_comResponse"/>
+</wsdl:message>
+<wsdl:portType name="XPServicePortType">
+<wsdl:operation name="get_trans_status">
+<wsdl:input message="axis2:get_trans_statusRequest" wsaw:Action="urn:get_trans_status"/>
+<wsdl:output message="axis2:get_trans_statusResponse" wsaw:Action="urn:get_trans_statusResponse"/>
+</wsdl:operation>
+<wsdl:operation name="validate_airtime_account">
+<wsdl:input message="axis2:validate_airtime_accountRequest" wsaw:Action="urn:validate_airtime_account"/>
+<wsdl:output message="axis2:validate_airtime_accountResponse" wsaw:Action="urn:validate_airtime_accountResponse"/>
+</wsdl:operation>
+<wsdl:operation name="bank_remit_log">
+<wsdl:input message="axis2:bank_remit_logRequest" wsaw:Action="urn:bank_remit_log"/>
+<wsdl:output message="axis2:bank_remit_logResponse" wsaw:Action="urn:bank_remit_logResponse"/>
+</wsdl:operation>
+<wsdl:operation name="get_partners">
+<wsdl:input message="axis2:get_partnersRequest" wsaw:Action="urn:get_partners"/>
+<wsdl:output message="axis2:get_partnersResponse" wsaw:Action="urn:get_partnersResponse"/>
+</wsdl:operation>
+<wsdl:operation name="cancel_trans">
+<wsdl:input message="axis2:cancel_transRequest" wsaw:Action="urn:cancel_trans"/>
+<wsdl:output message="axis2:cancel_transResponse" wsaw:Action="urn:cancel_transResponse"/>
+</wsdl:operation>
+<wsdl:operation name="get_banks">
+<wsdl:input message="axis2:get_banksRequest" wsaw:Action="urn:get_banks"/>
+<wsdl:output message="axis2:get_banksResponse" wsaw:Action="urn:get_banksResponse"/>
+</wsdl:operation>
+<wsdl:operation name="mm_trans_log">
+<wsdl:input message="axis2:mm_trans_logRequest" wsaw:Action="urn:mm_trans_log"/>
+<wsdl:output message="axis2:mm_trans_logResponse" wsaw:Action="urn:mm_trans_logResponse"/>
+</wsdl:operation>
+<wsdl:operation name="trans_com">
+<wsdl:input message="axis2:trans_comRequest" wsaw:Action="urn:trans_com"/>
+<wsdl:output message="axis2:trans_comResponse" wsaw:Action="urn:trans_comResponse"/>
+</wsdl:operation>
+<wsdl:operation name="account_request">
+<wsdl:input message="axis2:account_requestRequest" wsaw:Action="urn:account_request"/>
+<wsdl:output message="axis2:account_requestResponse" wsaw:Action="urn:account_requestResponse"/>
+</wsdl:operation>
+<wsdl:operation name="mm_remit_log">
+<wsdl:input message="axis2:mm_remit_logRequest" wsaw:Action="urn:mm_remit_log"/>
+<wsdl:output message="axis2:mm_remit_logResponse" wsaw:Action="urn:mm_remit_logResponse"/>
+</wsdl:operation>
+<wsdl:operation name="airtime_trans_log">
+<wsdl:input message="axis2:airtime_trans_logRequest" wsaw:Action="urn:airtime_trans_log"/>
+<wsdl:output message="axis2:airtime_trans_logResponse" wsaw:Action="urn:airtime_trans_logResponse"/>
+</wsdl:operation>
+<wsdl:operation name="get_rate">
+<wsdl:input message="axis2:get_rateRequest" wsaw:Action="urn:get_rate"/>
+<wsdl:output message="axis2:get_rateResponse" wsaw:Action="urn:get_rateResponse"/>
+</wsdl:operation>
+<wsdl:operation name="bank_trans_log">
+<wsdl:input message="axis2:bank_trans_logRequest" wsaw:Action="urn:bank_trans_log"/>
+<wsdl:output message="axis2:bank_trans_logResponse" wsaw:Action="urn:bank_trans_logResponse"/>
+</wsdl:operation>
+<wsdl:operation name="airtime_trans_com">
+<wsdl:input message="axis2:airtime_trans_comRequest" wsaw:Action="urn:airtime_trans_com"/>
+<wsdl:output message="axis2:airtime_trans_comResponse" wsaw:Action="urn:airtime_trans_comResponse"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="XPServiceSoap11Binding" type="axis2:XPServicePortType">
+<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<wsdl:operation name="get_trans_status">
+<soap:operation soapAction="urn:get_trans_status" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="validate_airtime_account">
+<soap:operation soapAction="urn:validate_airtime_account" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="bank_remit_log">
+<soap:operation soapAction="urn:bank_remit_log" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="get_partners">
+<soap:operation soapAction="urn:get_partners" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="cancel_trans">
+<soap:operation soapAction="urn:cancel_trans" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="get_banks">
+<soap:operation soapAction="urn:get_banks" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mm_trans_log">
+<soap:operation soapAction="urn:mm_trans_log" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="trans_com">
+<soap:operation soapAction="urn:trans_com" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="account_request">
+<soap:operation soapAction="urn:account_request" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mm_remit_log">
+<soap:operation soapAction="urn:mm_remit_log" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="airtime_trans_log">
+<soap:operation soapAction="urn:airtime_trans_log" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="get_rate">
+<soap:operation soapAction="urn:get_rate" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="bank_trans_log">
+<soap:operation soapAction="urn:bank_trans_log" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="airtime_trans_com">
+<soap:operation soapAction="urn:airtime_trans_com" style="document"/>
+<wsdl:input>
+<soap:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:binding name="XPServiceSoap12Binding" type="axis2:XPServicePortType">
+<soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+<wsdl:operation name="get_trans_status">
+<soap12:operation soapAction="urn:get_trans_status" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="validate_airtime_account">
+<soap12:operation soapAction="urn:validate_airtime_account" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="bank_remit_log">
+<soap12:operation soapAction="urn:bank_remit_log" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="get_partners">
+<soap12:operation soapAction="urn:get_partners" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="cancel_trans">
+<soap12:operation soapAction="urn:cancel_trans" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="get_banks">
+<soap12:operation soapAction="urn:get_banks" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mm_trans_log">
+<soap12:operation soapAction="urn:mm_trans_log" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="trans_com">
+<soap12:operation soapAction="urn:trans_com" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="account_request">
+<soap12:operation soapAction="urn:account_request" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mm_remit_log">
+<soap12:operation soapAction="urn:mm_remit_log" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="airtime_trans_log">
+<soap12:operation soapAction="urn:airtime_trans_log" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="get_rate">
+<soap12:operation soapAction="urn:get_rate" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="bank_trans_log">
+<soap12:operation soapAction="urn:bank_trans_log" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="airtime_trans_com">
+<soap12:operation soapAction="urn:airtime_trans_com" style="document"/>
+<wsdl:input>
+<soap12:body use="literal"/>
+</wsdl:input>
+<wsdl:output>
+<soap12:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:binding name="XPServiceHttpBinding" type="axis2:XPServicePortType">
+<http:binding verb="POST"/>
+<wsdl:operation name="get_trans_status">
+<http:operation location="XPService/get_trans_status"/>
+<wsdl:input>
+<mime:content type="text/xml" part="get_trans_status"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="get_trans_status"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="validate_airtime_account">
+<http:operation location="XPService/validate_airtime_account"/>
+<wsdl:input>
+<mime:content type="text/xml" part="validate_airtime_account"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="validate_airtime_account"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="bank_remit_log">
+<http:operation location="XPService/bank_remit_log"/>
+<wsdl:input>
+<mime:content type="text/xml" part="bank_remit_log"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="bank_remit_log"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="get_partners">
+<http:operation location="XPService/get_partners"/>
+<wsdl:input>
+<mime:content type="text/xml" part="get_partners"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="get_partners"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="cancel_trans">
+<http:operation location="XPService/cancel_trans"/>
+<wsdl:input>
+<mime:content type="text/xml" part="cancel_trans"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="cancel_trans"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="get_banks">
+<http:operation location="XPService/get_banks"/>
+<wsdl:input>
+<mime:content type="text/xml" part="get_banks"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="get_banks"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mm_trans_log">
+<http:operation location="XPService/mm_trans_log"/>
+<wsdl:input>
+<mime:content type="text/xml" part="mm_trans_log"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="mm_trans_log"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="trans_com">
+<http:operation location="XPService/trans_com"/>
+<wsdl:input>
+<mime:content type="text/xml" part="trans_com"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="trans_com"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="account_request">
+<http:operation location="XPService/account_request"/>
+<wsdl:input>
+<mime:content type="text/xml" part="account_request"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="account_request"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="mm_remit_log">
+<http:operation location="XPService/mm_remit_log"/>
+<wsdl:input>
+<mime:content type="text/xml" part="mm_remit_log"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="mm_remit_log"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="airtime_trans_log">
+<http:operation location="XPService/airtime_trans_log"/>
+<wsdl:input>
+<mime:content type="text/xml" part="airtime_trans_log"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="airtime_trans_log"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="get_rate">
+<http:operation location="XPService/get_rate"/>
+<wsdl:input>
+<mime:content type="text/xml" part="get_rate"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="get_rate"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="bank_trans_log">
+<http:operation location="XPService/bank_trans_log"/>
+<wsdl:input>
+<mime:content type="text/xml" part="bank_trans_log"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="bank_trans_log"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="airtime_trans_com">
+<http:operation location="XPService/airtime_trans_com"/>
+<wsdl:input>
+<mime:content type="text/xml" part="airtime_trans_com"/>
+</wsdl:input>
+<wsdl:output>
+<mime:content type="text/xml" part="airtime_trans_com"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="XPService">
+<wsdl:port name="XPServiceHttpSoap11Endpoint" binding="axis2:XPServiceSoap11Binding">
+<soap:address location="http://mfsapitest.com:8080/services/XPService.XPServiceHttpSoap11Endpoint/"/>
+</wsdl:port>
+<wsdl:port name="XPServiceHttpSoap12Endpoint" binding="axis2:XPServiceSoap12Binding">
+<soap12:address location="http://mfsapitest.com:8080/services/XPService.XPServiceHttpSoap12Endpoint/"/>
+</wsdl:port>
+<wsdl:port name="XPServiceHttpEndpoint" binding="axis2:XPServiceHttpBinding">
+<http:address location="http://mfsapitest.com:8080/services/XPService.XPServiceHttpEndpoint/"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

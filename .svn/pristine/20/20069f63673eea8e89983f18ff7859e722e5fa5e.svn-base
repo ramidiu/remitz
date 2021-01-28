@@ -1,0 +1,84 @@
+	html,body
+	{
+		margin:0;
+		padding:0;
+		border-radius:10px;	
+	}
+	table{margin:0;padding:0;
+display: table;
+
+border-spacing:0px !important;
+
+}
+	
+	.modal-overlay
+	{
+		position:fixed;
+		top:0;
+		right:0;
+		bottom:0;
+		left:0;
+		height:100%;
+		width:100%;
+		margin:0;
+		padding:0;
+		background:#fff;
+		opacity:.75;
+		filter: alpha(opacity=75);
+		-moz-opacity: 0.75;
+		z-index:101;
+		
+		
+		/*display:none;*/
+	}
+	* html .modal-overlay
+	{   
+		position: absolute;
+		overflow:hidden;
+		height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+	}
+.modal-window
+	{
+		overflow:hidden;
+		position:fixed;
+		top:50%;
+		left:50%;
+		margin:0;
+		padding:0;
+		z-index:105;
+		box-shadow: 0 0 8px #666;
+		background: #fff; /* Solid background color as a fallback for IE */
+  		border-radius: 12px;
+		border: 1px solid #999;
+		
+	}
+	* html .modal-window
+	{
+		position:absolute;
+		overflow:hidden;
+	}
+	.close-window
+	{
+		position:absolute;
+		width:25px;
+		height:25px;
+		right:8px;
+		top:8px;
+		/*background:url(images/Button-Close-icon.png) no-repeat top left;*/
+		background:url(../images/close.png) no-repeat top left;
+		text-indent:-99999px;
+		z-index:9999;
+		cursor:pointer;
+		opacity:.5;
+		filter: alpha(opacity=50);
+		-moz-opacity: 0.5;
+	}
+	.close-window:hover
+	{
+		 
+		opacity:.99;
+		filter: alpha(opacity=99);
+		-moz-opacity: 0.99;
+	}
+	
+
